@@ -7,3 +7,4 @@
 ;; (package! builtin-package :disable t)
 
 (package! imenu-list)
+(package! smerge-mode)

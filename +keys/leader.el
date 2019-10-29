@@ -85,7 +85,7 @@
           :desc "Switch to 7th workspace"       "7"   #'+workspace/switch-to-6
           :desc "Switch to 8th workspace"       "8"   #'+workspace/switch-to-7
           :desc "Switch to 9th workspace"       "9"   #'+workspace/switch-to-8
-          :desc "Switch to final workspace"     "0"   #'+workspace/switch-to-final
+          :desc "Switch to last workspace"      "0"   #'+workspace/switch-to-final
           ;;; > Create workspaces ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
           :desc "New workspace"                 "n"   #'+workspace/new
           :desc "Load workspace from file"      "l"   #'+workspace/load
@@ -258,7 +258,17 @@
             :desc "Fixup"                       "f"   #'magit-commit-fixup
             :desc "Branch"                      "b"   #'magit-branch-and-checkout
             :desc "Issue"                       "i"   #'forge-create-issue
-            :desc "Pull request"                "p"   #'forge-create-pullreq)))
+            :desc "Pull request"                "p"   #'forge-create-pullreq)
+          (:prefix ("m" . "merge")
+            :desc "Next hunk"                   "n"   #'smerge-next
+            :desc "Previous hunk"               "N"   #'smerge-prev
+            :desc "Keep all"                    "a"   #'smerge-keep-all
+            :desc "Keep base"                   "b"   #'smerge-keep-base
+            :desc "Keep mine"                   "m"   #'smerge-keep-mine
+            :desc "Keep other"                  "o"   #'smerge-keep-other
+            :desc "Keep current"                "c"   #'smerge-keep-current
+            :desc "Combine hunks"               "C"   #'smerge-combine-with-next
+            :desc "Refine"                      "r"   #'smerge-refine)))
 
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;;; INSERTION ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
