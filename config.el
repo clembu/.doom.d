@@ -3,7 +3,7 @@
 (setq user-full-name "Clément Busschaert"
       user-mail-address "clement.busschaert@gmail.com")
 
-(def-package! imenu-list
+(use-package! imenu-list
   :commands imenu-list-smart-toggle)
 
 (load! "+keys")
