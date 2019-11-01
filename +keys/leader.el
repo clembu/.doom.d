@@ -37,7 +37,9 @@
 ;;; Code map ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (map! :map doom-leader-code-map
       ;;; > Control compilation
-        :desc "Kill compilation"              "k"    #'kill-compilation)
+      :desc "Kill compilation"                "k"    #'kill-compilation
+      ;;; > List items
+      :desc "List code items"                 "l"    #'imenu-list-smart-toggle)
 
 ;;; Versioning map ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (map! :map doom-leader-git-map
