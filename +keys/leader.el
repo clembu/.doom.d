@@ -265,6 +265,8 @@
             :desc "Keep mine"                   "m"    #'smerge-keep-mine
             :desc "Keep other"                  "o"    #'smerge-keep-other
             :desc "Keep current"                "c"    #'smerge-keep-current
+            :desc "Keep upper" "u" #'smerge-keep-upper
+            :desc "Keep lower" "l" #'smerge-keep-lower
             :desc "Combine hunks"               "C"    #'smerge-combine-with-next
             :desc "Refine"                      "r"    #'smerge-refine)))
 
