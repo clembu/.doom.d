@@ -1,6 +1,6 @@
 #+TITLE: DOOM emacs configuration
 * About this document
-This is my [[github:hlissner/doom-emacs][doom-emacs]] configuration.
+This is my [[https://github.com/hlissner/doom-emacs][doom-emacs]] configuration.
 
 It is all written in an [[https://orgmode.org/][org-mode]] file,
 from which [[https://www.gnu.org/software/emacs/manual/html_node/elisp/][emacs-lisp]] is extracted by doom to actually configure it.
@@ -34,15 +34,15 @@ step back.
 I initially didn't really care about fonts that much. If I could read it, it was
 fine enough for me.
 
-Then I discovered [[github:tonsky/FiraCode][Fira Code]], and its ligatures, and I thought:
+Then I discovered [[https://github.com/tonsky/FiraCode][Fira Code]], and its ligatures, and I thought:
 #+BEGIN_QUOTE
 What a great way to read code!
 #+END_QUOTE
 
-So I tried my best to include ligatures in my [[github:facelesspanda/.spacemacs.d][spacemacs config of the time]].
+So I tried my best to include ligatures in my [[https://github.com/facelesspanda/.spacemacs.d][spacemacs config of the time]].
 
 When I switched to Doom, I realized it already had Fira support built-in, but
-also a font called [[github:be5invis/Iosevka][Iosevka]], which I checked out and liked a lot. So I went and
+also a font called [[https://github.com/be5invis/Iosevka][Iosevka]], which I checked out and liked a lot. So I went and
 downloaded a patched font for it (because Emacs doesn't support actual
 ligatures).
 
@@ -68,7 +68,7 @@ spacemacs theme.
 When switching to doom, I found the default [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots#doom-one][Doom One]] theme to cover all my
 needs.
 But I soon started exploring the themes.
-And now I'm using [[github:muirmanders/emacs-nova-theme][Nova (but the doom version)]]:
+And now I'm using [[https://github.com/muirmanders/emacs-nova-theme][Nova (but the doom version)]]:
 #+BEGIN_SRC emacs-lisp :tangle yes
 (setq doom-theme 'doom-nova)
 #+END_SRC
