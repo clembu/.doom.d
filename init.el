@@ -25,17 +25,17 @@
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;;hydra
+       hydra
        indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
-       ;;neotree           ; a project drawer, like NERDTree for vim
+       ;; neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup            ; tame sudden yet inevitable temporary windows
-        +all             ; catch all popups that start with an asterix
-        +defaults)       ; default popup rules
-       (pretty-code
-        +iosevka)       ; replace bits of code with pretty symbols
+        ;; +all             ; catch all popups that start with an asterix
+        ;; +defaults
+        )       ; default popup rules
+       pretty-code         ; replace bits of code with pretty symbols
        ;;tabs              ; an tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
@@ -49,8 +49,8 @@
        file-templates    ; auto-snippets for empty files
        ;;god               ; run Emacs commands without modifier keys
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
-       ;;lispy             ; vim for lisp, for people who dont like vim
+       (format +onsave)          ; automated prettiness
+       ;; lispy             ; vim for lisp, for people who dont like vim
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
@@ -130,12 +130,13 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
-        +dragndrop       ; drag & drop files/images into org buffers
+        ;+dragndrop       ; drag & drop files/images into org buffers
         ;+hugo            ; use Emacs for hugo blogging
-        +ipython         ; ipython/jupyter support for babel
-        +pandoc          ; export-with-pandoc support
+        ;+ipython         ; ipython/jupyter support for babel
+        ;+pandoc          ; export-with-pandoc support
         ;+pomodoro        ; be fruitful with the tomato technique
-        +present)        ; using org-mode for presentations
+        ;+present        ; using org-mode for presentations
+        )
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
@@ -152,7 +153,8 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
+       web               ; the tubes
+       ;; eliom ; LOCAL
 
        :email
        ;;(mu4e +gmail)       ; WIP
@@ -174,9 +176,31 @@
        :config
        ;; For literate config users. This will tangle+compile a config.org
        ;; literate config in your `doom-private-dir' whenever it changes.
-       ;;literate
+       literate
 
        ;; The default module sets reasonable defaults for Emacs. It also
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
        (default +bindings +smartparens))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    ((sql-product . postgres)
+     (sql-connection-alist
+      ("besport"
+       (sql-product
+        (quote postgres))
+       (sql-user "odd")
+       (sql-server "localhost")
+       (sql-database "bs")
+       (sql-port 3000)))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
