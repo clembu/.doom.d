@@ -6,3 +6,5 @@ tmp/
 
 # generated from literate org
 config.el
+packages.el
+init.el
