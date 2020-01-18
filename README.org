@@ -1,0 +1,495 @@
+#+TITLE:     DOOM Emacs Configuration
+#+AUTHOR:    Clément Busschaert
+#+DATE:      Wed Jan  8
+
+:warning: :construction: This document is a work in progress :construction:
+
+* Table of contents :TOC_3:
+- [[#about-doom-emacs][About DOOM Emacs]]
+  - [[#what-doom-emacs-is][What DOOM Emacs is]]
+  - [[#how-configuring-doom-works][How configuring DOOM works]]
+- [[#about-this-document][About this document]]
+  - [[#tangled-files][Tangled files]]
+- [[#formalities][Formalities]]
+- [[#basic-text-manipulation][Basic text manipulation]]
+  - [[#modal-editing-vim-without-vim][Modal editing (Vim without vim)]]
+  - [[#repetition-is-for-the-weak][Repetition is for the weak]]
+  - [[#autocode-do-it-for-me][Autocode: Do-it-for-me]]
+- [[#getting-an-outline][Getting an outline]]
+- [[#smerge][Smerge]]
+- [[#navigation][Navigation]]
+  - [[#window-manipulation][Window manipulation]]
+  - [[#outlines-sections-documentation][Outlines, sections, documentation]]
+  - [[#file-browsing][File browsing]]
+  - [[#buffers][Buffers]]
+- [[#interfacing][Interfacing]]
+  - [[#basic-visual-configuration][Basic visual configuration]]
+    - [[#making-doom-look-like-doom][Making doom look like doom]]
+    - [[#adjusting-the-feelings][Adjusting the feelings]]
+  - [[#global-control][Global control]]
+  - [[#menus][Menus]]
+  - [[#prompts][Prompts]]
+  - [[#decorations][Decorations]]
+  - [[#zen-mode][Zen mode]]
+- [[#versioning][Versioning]]
+- [[#running-stuff][Running stuff]]
+- [[#languages][Languages]]
+  - [[#the-absolute-essential][The absolute essential]]
+  - [[#programming-languages][Programming languages]]
+    - [[#ocaml][OCaml]]
+    - [[#web-programming][Web programming]]
+    - [[#others][Others]]
+  - [[#configs-data-etc][Configs, Data, etc]]
+  - [[#text-and-document-authoring][Text and document authoring]]
+- [[#applications][Applications]]
+- [[#closing-thoughts][Closing thoughts]]
+
+* About DOOM Emacs
+** What DOOM Emacs is
+[[HTTPS://github.com/hlissner/doom-emacs][DOOM Emacs]] is a several things.
+
+It is an Emacs-lisp library, a set of functions and variables to help write
+configurations in a clear, readable, concise and modular way.
+
+It is also a stock of pre-available configurations.
+
+It is also a collection of executables to install it and update it.
+
+It is *not* a fork of Emacs.
+
+** How configuring DOOM works
+
+Configuring DOOM Emacs is done within a directory. Either it is =~/.doom.d= or
+it is =~/.config/doom=. Or any other directory really, as long as the ~$DOOMDIR~
+environment variable is set to it.
+
+The core file to have when using DOOM Emacs is =init.el=. It contains the list
+of DOOM modules that you want to enable. This file is kind of weird though
+because it's not meant to talk to Emacs but to DOOM. After changing it, you need
+to run ~~/.emacs.d/bin/doom refresh~ (or ~~/.config/emacs/bin/doom~ I guess?)
+
+If you have more stuff to tell Emacs, and at this point actually tell Emacs, you
+put your config in =config.el= (and maybe other files that you'd load from there
+if you want.)
+
+If anything needs to be autoloaded, though, it has to go in its own file:
+=autoloads.el=.
+
+That's a few different files when you'd think one would suffice, but doing it
+this way allows for a number of optimizations, so Emacs launches fast.
+
+* About this document
+
+This document is written in Org.
+
+It is where I explain my configuration.
+
+It is also the configuration.
+
+All code blocks present in this document are extracted (or "tangled") into the
+respective =.el= files I mentioned earlier.
+
+All I have to do is ~make~ to regenerate all of the files from this Org
+document.
+
+** Tangled files
+As stated, this document tangles a few =.el= files. More specifically the
+following files:
+#+BEGIN_SRC emacs-lisp :tangle init.el
+;;; init.el -*- lexical-binding: t; -*-
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle packages.el
+;;; packages.el -*- lexical-binding: t; -*-
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;;; config.el -*- lexical-binding: t; -*-
+#+END_SRC
+
+Now, because I am tangling =init.el=, which should contain a single ~doom!~
+expression, in such a way that I can introduce its content when relevant, I have
+to open this ~doom!~ block, and then close it at the end of the document.
+Because I don't want to worry about the future regarding that, I don't want the
+code block containing the opening ~doom!~ to refer to any module, and I don't
+want to close the block in a code block containing any module either. So, now
+I'm going to open this ~doom!~ block and get started with configuring my damn
+editor.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+(doom!
+#+END_SRC
+
+Okay now let's do this.
+
+* Formalities
+It's always a good thing to introduce oneself at some point.
+If what I'm doing is telling emacs to do things, I really ought to tell it my
+name and how to contact me.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(setq user-full-name "Clément Busschaert"
+      user-mail-address (concat "clement.busschaert" "@" "gmail.com"))
+#+END_SRC
+Actually these variables are used from times to times when using GPG or other
+things like that. You never know when packages will need to know who you are.
+
+* Basic text manipulation
+** Modal editing (Vim without vim)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:editor (evil +everywhere)
+#+END_SRC
+** Repetition is for the weak
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:editor multiple-cursors
+#+END_SRC
+
+** Autocode: Do-it-for-me
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:completion (company +childframe)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:editor file-templates
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:editor (format +onsave)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:editor rotate-text
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:editor snippets
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:emacs electric
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:tools rgb
+#+END_SRC
+* Getting an outline
+iMenu-list.
+
+Step one, get the package.
+#+BEGIN_SRC emacs-lisp :tangle packages.el
+                                        ; packages.el
+(package! imenu-list)
+#+END_SRC
+
+Step two, use the package.
+
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(use-package! imenu-list
+  :commands imenu-list-smart-toggle)
+#+END_SRC
+
+Step three, bind the command.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(map! :map doom-leader-code-map
+      :desc "List code items" "l" #'imenu-list-smart-toggle)
+#+END_SRC
+
+* Smerge
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(map! :map doom-leader-git-map
+      :desc "SMerge" "m" #'+vc/smerge-hydra/body)
+#+END_SRC
+
+* Navigation
+** Window manipulation
+Sometimes you want to keep a buffer in place. Sometimes you want that one window
+to keep that one buffer open.
+
+I often use this feature to keep the magit-status buffer open in my VC
+workspace, or to keep a "compilation window" around.
+
+Doom doesn't offer that by default, so I took a snippet I found in spacemacs'
+code, and used that.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
+(defun toggle-window-dedication ()
+  "Toggle dedication state of a window."
+  (interactive)
+  (let* ((window    (selected-window))
+         (dedicated (window-dedicated-p window)))
+    (set-window-dedicated-p window (not dedicated))
+    (message "Window %sdedicated to %s"
+             (if dedicated "no longer " "")
+             (buffer-name))))
+#+END_SRC
+
+Now we map that in the window keymap.
+
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(map! :map evil-window-map
+      :desc "Set dedication" "t" #'toggle-window-dedication)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui (window-select +switch-window)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui workspaces
+#+END_SRC
+
+** Outlines, sections, documentation
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:editor fold
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:tools (lookup +docsets)
+#+END_SRC
+** File browsing
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:emacs dired
+#+END_SRC
+
+** Buffers
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:emacs ibuffer
+#+END_SRC
+* Interfacing
+** Basic visual configuration
+*** Making doom look like doom
+Doom can look like vanilla emacs if you want to look like a very intelligent
+godlike being able to understand how to use emacs without help. I'm not that
+arrogant. I'm a hip kid, I want a slick design and a cool theme and the best
+font ever.
+
+There are modules that make a lot of the heavy lifting in regards to visuals:
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui doom
+:ui modeline
+#+END_SRC
+I think their names are quite evocative of what they configure, but for the kid
+in the last row with the yellow cap: =doom= enables [[https://github.com/hlissner/emacs-doom-themes][doom-themes]] and =modeline=
+configures [[https://github.com/seagle0128/doom-modeline][doom-modeline]].
+
+These modules do a good job by default, but there are a few things that need to
+be tweaked for me to have the bestest editing visual experience ever.
+
+**** First: fonts
+We want to configure two fonts: the monospace one, and the
+variable pitch one. I want both of them to be the same: the bestest font ever.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(setq doom-font (font-spec :family "Comic Code" :size 13)
+      doom-variable-pitch-font (font-spec :family "Comic Code"))
+#+END_SRC
+
+An additional module is available to support unicode characters like '恋犬' or
+'ਕਤੂਰੇ', which sometimes you do want to be able to see clearly.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui unicode
+#+END_SRC
+
+**** Second: theme
+The theme is just that one single variable =doom-theme=. I like [[https://github.com/trevordmiller/nova-vim][Nova]]. Let's use
+Nova.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(setq doom-theme 'doom-nova)
+#+END_SRC
+
+*** Adjusting the feelings
+**** Snappier hints
+Which-key has this thing that describes available keybinds. It auto-opens a menu
+when you press a prefix key. For example, you press =SPC= and then you have this
+popup listing all the keys available as a follower to =SPC=.
+
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(setq which-key-idle-delay 0.5)
+#+END_SRC
+
+**** Relative line numbers
+I like them, okay. I don't know why. It just feels right.
+
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(setq display-line-numbers-type 'relative)
+#+END_SRC
+** Global control
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:completion (ivy +childframe +fuzzy +icons)
+#+END_SRC
+** Menus
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui doom-dashboard
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui hydra
+#+END_SRC
+** Prompts
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui doom-quit
+#+END_SRC
+** Decorations
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui fill-column
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui hl-todo
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui indent-guides
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui nav-flash
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui ophints
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui pretty-code
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui vc-gutter
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui vi-tilde-fringe
+#+END_SRC
+** Zen mode
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:ui zen
+#+END_SRC
+
+* Versioning
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:emacs vc
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:tools magit
+#+END_SRC
+* Running stuff
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:tools eval
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:checkers syntax
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:tools make
+#+END_SRC
+
+* Languages
+** The absolute essential
+Can't fully use emacs to its full potential if you can't edit emacs-lisp like a
+pro.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang emacs-lisp
+#+END_SRC
+** Programming languages
+*** OCaml
+I like OCaml a lot.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang ocaml
+#+END_SRC
+
+**** Eliom
+Oh boy if you don't know this, [[http://ocsigen.org/home/intro.html][look it up]]!
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(after! tuareg
+  (add-hook! before-save #'ocamlformat-before-save)
+  (add-hook! tuareg-mode
+    (let ((ext (file-name-extension buffer-file-name t)))
+      (cond ((equal ext ".eliom")
+             (setq-local ocamlformat-file-kind 'implementation))
+            ((equal ext ".eliomi")
+             (setq-local ocamlformat-file-kind 'interface))))))
+#+END_SRC
+*** Web programming
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang javascript
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang web
+#+END_SRC
+
+*** Others
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang python
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang rust
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang sh
+#+END_SRC
+
+** Configs, Data, etc
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang data
+#+END_SRC
+
+** Text and document authoring
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang latex
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang markdown
+#+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:lang org
+#+END_SRC
+* Applications
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:app calendar
+#+END_SRC
+
+* Closing thoughts
+#+BEGIN_SRC emacs-lisp :tangle init.el
+                                        ; init.el
+:config (default +bindings +smartparens)
+)
+#+END_SRC
