@@ -244,6 +244,13 @@ Now we map that in the window keymap.
                                         ; init.el
 :ui workspaces
 #+END_SRC
+#+BEGIN_SRC emacs-lisp :tangle config.el
+                                        ; config.el
+(map! :leader
+      :desc "IGNORED"                         "`"    nil
+      :desc "Switch to last buffer"           "TAB"  #'evil-switch-to-windows-last-buffer
+      :desc "layouts"                         "l"    doom-leader-workspace-map)
+#+END_SRC
 
 ** Outlines, sections, documentation
 #+BEGIN_SRC emacs-lisp :tangle init.el
